@@ -1,0 +1,143 @@
+'use client';
+import { useState, useEffect } from 'react';
+import { useCart } from '@/store/cart';
+import { createOrder } from '@/lib/api';
+import { useRouter } from 'next/navigation';
+
+interface FormData {
+  clientName: string;
+  clientSurname: string;
+  clientEmail: string;
+  clientPhone: string;
+  clientDni: string;
+  clientCuil: string;
+  clientAddress: string;
+}
+
+const EMPTY_FORM: FormData = {
+  clientName: '',
+  clientSurname: '',
+  clientEmail: '',
+  clientPhone: '',
+  clientDni: '',
+  clientCuil: '',
+  clientAddress: '',
+};
+
+export default function CheckoutPage() {
+  const { items, totalPrice, clearCart } = useCart();
+  const router = useRouter();
+  const [form, setForm] = useState<FormData>(EMPTY_FORM);
+  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    useCart.persist.rehydrate();
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && items.length === 0) {
+      router.replace('/');
+    }
+  }, [mounted, items.length, router]);
+
+  if (!mounted) return null;
+  if (items.length === 0) return null;
+
+  const validate = (): boolean => {
+    const e: Partial<FormData> = {};
+    if (!form.clientName.trim()) e.clientName = 'Requerido';
+    if (!form.clientSurname.trim()) e.clientSurname = 'Requerido';
+    if (!form.clientEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.clientEmail)) e.clientEmail = 'Email inválido';
+    if (!form.clientPhone.trim()) e.clientPhone = 'Requerido';
+    if (!form.clientDni.trim()) e.clientDni = 'Requerido';
+    if (!form.clientCuil.trim()) e.clientCuil = 'Requerido';
+    if (!form.clientAddress.trim()) e.clientAddress = 'Requerido';
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setSubmitting(true);
+    try {
+      await createOrder({
+        ...form,
+        items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
+      });
+      clearCart();
+      router.push('/confirmacion');
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Error al enviar el pedido. Intentá de nuevo.');
+      setSubmitting(false);
+    }
+  };
+
+  const field = (key: keyof FormData, label: string, type = 'text', placeholder = '') => (
+    <div>
+      <label className="text-xs font-semibold text-gray-600 block mb-1">{label}</label>
+      <input
+        type={type}
+        value={form[key]}
+        onChange={(e) => { setForm({ ...form, [key]: e.target.value }); setErrors({ ...errors, [key]: undefined }); }}
+        placeholder={placeholder}
+        className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#044389] transition-colors ${errors[key] ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+      />
+      {errors[key] && <p className="text-xs text-red-500 mt-0.5">{errors[key]}</p>}
+    </div>
+  );
+
+  return (
+    <div className="max-w-2xl mx-auto px-4 py-10">
+      <h1 className="text-2xl font-black text-[#044389] mb-6">Completá tu pedido</h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:col-span-1">
+          <div className="grid grid-cols-2 gap-3">
+            {field('clientName', 'Nombre *', 'text', 'Juan')}
+            {field('clientSurname', 'Apellido *', 'text', 'García')}
+          </div>
+          {field('clientEmail', 'Email *', 'email', 'juan@mail.com')}
+          {field('clientPhone', 'Celular *', 'tel', '11 1234-5678')}
+          <div className="grid grid-cols-2 gap-3">
+            {field('clientDni', 'DNI *', 'text', '12345678')}
+            {field('clientCuil', 'CUIL / CUIT *', 'text', '20-12345678-9')}
+          </div>
+          {field('clientAddress', 'Dirección *', 'text', 'Av. Corrientes 1234, CABA')}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="mt-2 w-full bg-[#FCFF4B] text-[#044389] font-black py-3.5 rounded-xl hover:bg-[#f0f33d] transition-colors disabled:opacity-50 text-sm"
+          >
+            {submitting ? 'Enviando pedido...' : 'Confirmar pedido'}
+          </button>
+        </form>
+
+        {/* Order summary */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 h-fit md:col-span-1">
+          <h2 className="font-bold text-gray-700 text-sm mb-3">Resumen del pedido</h2>
+          <div className="flex flex-col gap-2">
+            {items.map((item) => (
+              <div key={item.productId} className="flex justify-between text-sm text-gray-600">
+                <span>{item.name} <span className="text-gray-400">x{item.quantity}</span></span>
+                <span className="font-semibold">${(item.price * item.quantity).toLocaleString('es-AR')}</span>
+              </div>
+            ))}
+          </div>
+          <div className="border-t border-gray-100 mt-3 pt-3 flex justify-between font-black text-[#044389]">
+            <span>Total</span>
+            <span>${totalPrice().toLocaleString('es-AR')}</span>
+          </div>
+          <p className="text-xs text-gray-400 mt-3 leading-relaxed">
+            Al confirmar tu pedido te vamos a contactar por WhatsApp con los datos para realizar la transferencia.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

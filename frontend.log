@@ -1,0 +1,17 @@
+
+> puntofiesta-frontend@0.1.0 dev
+> next dev --port 3002
+
+[32m✔[0m [33mConsole Ninja[0m extension is connected to [33mNext.js[0m, see [36mhttps://tinyurl.com/2vt8jxzw[0m
+⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::3002
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::3002)
+    at new Promise (<anonymous>)
+    at process._0x4e0651 [as emit] (c:\Users\maria\.vscode\extensions\wallabyjs.console-ninja-1.0.530\out\buildHook\index.js:1:237365) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3002
+}
+[?25h
