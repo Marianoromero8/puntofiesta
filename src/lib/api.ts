@@ -1,4 +1,4 @@
-import type { PFCategory, PFProduct, CreateOrderDto } from './types';
+import type { PFCategory, PFProduct, CreateOrderDto, PFAnnouncement } from './types';
 
 const BASE = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/punto-fiesta`;
 
@@ -14,6 +14,20 @@ export async function getProducts(): Promise<PFProduct[]> {
   if (!res.ok) throw new Error('Error fetching products');
   const json = await res.json();
   return json.data as PFProduct[];
+}
+
+export async function getActivePopup(): Promise<PFAnnouncement[]> {
+  const res = await fetch(`${BASE}/announcements/active-popup`);
+  if (!res.ok) return [];
+  const json = await res.json();
+  return json.data as PFAnnouncement[];
+}
+
+export async function getActiveCarousel(): Promise<PFAnnouncement[]> {
+  const res = await fetch(`${BASE}/announcements/active-carousel`);
+  if (!res.ok) return [];
+  const json = await res.json();
+  return json.data as PFAnnouncement[];
 }
 
 export async function createOrder(data: CreateOrderDto) {

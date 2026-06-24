@@ -25,6 +25,15 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface PFAnnouncement {
+  id: string;
+  type: 'POPUP' | 'CAROUSEL';
+  imageUrl: string;
+  title: string | null;
+  isActive: boolean;
+  displayOrder: number;
+}
+
 export interface CreateOrderDto {
   clientName: string;
   clientSurname: string;

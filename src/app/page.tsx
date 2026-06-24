@@ -1,5 +1,6 @@
 import { getCategories, getProducts } from '@/lib/api';
 import CatalogSection from '@/components/CatalogSection';
+import CarouselSection from '@/components/CarouselSection';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +21,9 @@ export default async function HomePage() {
           Combos y productos para tu evento. Hacé tu pedido, transferí y listo.
         </p>
       </section>
+
+      {/* Carousel */}
+      <CarouselSection />
 
       {/* Catalog */}
       <section className="max-w-6xl mx-auto px-4 py-10">
