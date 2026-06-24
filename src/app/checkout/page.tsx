@@ -46,14 +46,25 @@ export default function CheckoutPage() {
   if (!mounted) return null;
   if (items.length === 0) return null;
 
+  const cleanPhone = (v: string) => v.replace(/\D/g, '').replace(/^(549|54)/, '');
+
+  const handleCuilChange = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+    let formatted = digits;
+    if (digits.length > 10) formatted = `${digits.slice(0, 2)}-${digits.slice(2, 10)}-${digits.slice(10)}`;
+    else if (digits.length > 2) formatted = `${digits.slice(0, 2)}-${digits.slice(2)}`;
+    setForm({ ...form, clientCuil: formatted });
+    setErrors({ ...errors, clientCuil: undefined });
+  };
+
   const validate = (): boolean => {
     const e: Partial<FormData> = {};
     if (!form.clientName.trim()) e.clientName = 'Requerido';
     if (!form.clientSurname.trim()) e.clientSurname = 'Requerido';
     if (!form.clientEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.clientEmail)) e.clientEmail = 'Email inválido';
-    if (!form.clientPhone.trim()) e.clientPhone = 'Requerido';
+    if (cleanPhone(form.clientPhone).length !== 10) e.clientPhone = 'Ingresá 10 dígitos (ej: 2914123456)';
     if (!form.clientDni.trim()) e.clientDni = 'Requerido';
-    if (!form.clientCuil.trim()) e.clientCuil = 'Requerido';
+    if (!/^\d{2}-\d{8}-\d$/.test(form.clientCuil)) e.clientCuil = 'Formato: 20-12345678-9';
     if (!form.clientAddress.trim()) e.clientAddress = 'Requerido';
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -66,6 +77,7 @@ export default function CheckoutPage() {
     try {
       await createOrder({
         ...form,
+        clientPhone: cleanPhone(form.clientPhone),
         items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
       });
       clearCart();
@@ -102,10 +114,20 @@ export default function CheckoutPage() {
             {field('clientSurname', 'Apellido *', 'text', 'García')}
           </div>
           {field('clientEmail', 'Email *', 'email', 'juan@mail.com')}
-          {field('clientPhone', 'Celular *', 'tel', '11 1234-5678')}
+          {field('clientPhone', 'Celular *', 'tel', '2914 123456')}
           <div className="grid grid-cols-2 gap-3">
             {field('clientDni', 'DNI *', 'text', '12345678')}
-            {field('clientCuil', 'CUIL / CUIT *', 'text', '20-12345678-9')}
+            <div>
+              <label className="text-xs font-semibold text-gray-600 block mb-1">CUIL / CUIT *</label>
+              <input
+                type="text"
+                value={form.clientCuil}
+                onChange={(e) => handleCuilChange(e.target.value)}
+                placeholder="20-12345678-9"
+                className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#044389] transition-colors ${errors.clientCuil ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+              />
+              {errors.clientCuil && <p className="text-xs text-red-500 mt-0.5">{errors.clientCuil}</p>}
+            </div>
           </div>
           {field('clientAddress', 'Dirección *', 'text', 'Av. Corrientes 1234, CABA')}
 

@@ -7,7 +7,7 @@ export default async function HomePage() {
   const [categories, products] = await Promise.all([getCategories(), getProducts()]);
 
   const activeCategories = categories.filter((c) => c.active);
-  const activeProducts = products.filter((p) => p.active && p.stock > 0);
+  const activeProducts = products.filter((p) => p.active);
 
   return (
     <div>
