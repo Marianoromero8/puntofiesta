@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
 const MAINTENANCE_HTML = `<!doctype html>
 <html lang="es">
@@ -62,7 +61,7 @@ const MAINTENANCE_HTML = `<!doctype html>
 </body>
 </html>`;
 
-export function proxy(request: NextRequest) {
+export function proxy() {
   if (process.env.MAINTENANCE_MODE !== 'true') {
     return NextResponse.next();
   }

@@ -14,7 +14,15 @@ export interface PFProduct {
   categoryId: string;
   stock: number;
   active: boolean;
+  featured: boolean;
   category?: PFCategory | null;
+}
+
+export interface PFPublicSettings {
+  address: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  whatsappUrl: string;
 }
 
 export interface CartItem {
@@ -34,6 +42,8 @@ export interface PFAnnouncement {
   displayOrder: number;
 }
 
+export type PFDeliveryMethod = 'PICKUP' | 'DELIVERY';
+
 export interface CreateOrderDto {
   clientName: string;
   clientSurname: string;
@@ -42,5 +52,6 @@ export interface CreateOrderDto {
   clientDni: string;
   clientCuil: string;
   clientAddress: string;
+  deliveryMethod: PFDeliveryMethod;
   items: { productId: string; quantity: number }[];
 }

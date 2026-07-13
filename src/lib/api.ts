@@ -1,4 +1,4 @@
-import type { PFCategory, PFProduct, CreateOrderDto, PFAnnouncement } from './types';
+import type { PFCategory, PFProduct, CreateOrderDto, PFAnnouncement, PFPublicSettings } from './types';
 
 const BASE = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/punto-fiesta`;
 
@@ -28,6 +28,13 @@ export async function getActiveCarousel(): Promise<PFAnnouncement[]> {
   if (!res.ok) return [];
   const json = await res.json();
   return json.data as PFAnnouncement[];
+}
+
+export async function getPublicSettings(): Promise<PFPublicSettings> {
+  const res = await fetch(`${BASE}/settings/public`);
+  if (!res.ok) return { address: '', instagramUrl: '', facebookUrl: '', whatsappUrl: '' };
+  const json = await res.json();
+  return json.data as PFPublicSettings;
 }
 
 export async function createOrder(data: CreateOrderDto) {

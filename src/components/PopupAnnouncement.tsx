@@ -35,7 +35,7 @@ export default function PopupAnnouncement() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 cursor-pointer"
       onClick={close}
     >
       <div
@@ -55,13 +55,13 @@ export default function PopupAnnouncement() {
             <>
               <button
                 onClick={prev}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors cursor-pointer"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button
                 onClick={next}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors cursor-pointer"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -76,7 +76,7 @@ export default function PopupAnnouncement() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className="h-2 rounded-full transition-all"
+                className="h-2 rounded-full transition-all cursor-pointer"
                 style={{
                   width: i === current ? '1.5rem' : '0.5rem',
                   backgroundColor: i === current ? '#FCFF4B' : '#d1d5db',
@@ -97,7 +97,7 @@ export default function PopupAnnouncement() {
         <div className="px-5 pb-5 pt-2">
           <button
             onClick={close}
-            className="w-full text-[11px] uppercase tracking-[0.15em] bg-[#044389] text-[#FCFF4B] py-3 hover:bg-[#033070] transition-colors font-semibold rounded"
+            className="w-full text-[11px] uppercase tracking-[0.15em] bg-[#044389] text-[#FCFF4B] py-3 hover:bg-[#033070] transition-colors font-semibold rounded cursor-pointer"
           >
             Cerrar
           </button>
