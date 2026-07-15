@@ -66,10 +66,10 @@ export default function ProductCard({ product }: Props) {
               outOfStock
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                 : added
-                ? 'bg-green-500 text-white'
+                ? 'bg-green-500 text-white cursor-pointer'
                 : inCart
-                ? 'bg-[#044389]/10 text-[#044389] hover:bg-[#044389]/20'
-                : 'bg-[#FCFF4B] text-[#044389] hover:bg-[#f0f33d]'
+                ? 'bg-[#044389]/10 text-[#044389] hover:bg-[#044389]/20 cursor-pointer'
+                : 'bg-[#FCFF4B] text-[#044389] hover:bg-[#f0f33d] cursor-pointer'
             }`}
           >
             {outOfStock ? (

@@ -1,8 +1,10 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useCart } from '@/store/cart';
 import { createOrder } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { AlertTriangle, X } from 'lucide-react';
+import type { PFDeliveryMethod } from '@/lib/types';
 
 interface FormData {
   clientName: string;
@@ -12,6 +14,7 @@ interface FormData {
   clientDni: string;
   clientCuil: string;
   clientAddress: string;
+  deliveryMethod: PFDeliveryMethod;
 }
 
 const EMPTY_FORM: FormData = {
@@ -22,6 +25,7 @@ const EMPTY_FORM: FormData = {
   clientDni: '',
   clientCuil: '',
   clientAddress: '',
+  deliveryMethod: 'PICKUP',
 };
 
 export default function CheckoutPage() {
@@ -30,7 +34,9 @@ export default function CheckoutPage() {
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const justSubmittedRef = useRef(false);
 
   useEffect(() => {
     useCart.persist.rehydrate();
@@ -38,7 +44,7 @@ export default function CheckoutPage() {
   }, []);
 
   useEffect(() => {
-    if (mounted && items.length === 0) {
+    if (mounted && items.length === 0 && !justSubmittedRef.current) {
       router.replace('/');
     }
   }, [mounted, items.length, router]);
@@ -73,6 +79,7 @@ export default function CheckoutPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    setSubmitError(null);
     setSubmitting(true);
     try {
       await createOrder({
@@ -80,10 +87,13 @@ export default function CheckoutPage() {
         clientPhone: cleanPhone(form.clientPhone),
         items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
       });
+      justSubmittedRef.current = true;
       clearCart();
       router.push('/confirmacion');
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Error al enviar el pedido. Intentá de nuevo.');
+      setSubmitError(
+        err instanceof Error ? err.message : 'Error al enviar el pedido. Intentá de nuevo.'
+      );
       setSubmitting(false);
     }
   };
@@ -109,6 +119,36 @@ export default function CheckoutPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:col-span-1">
+          <div>
+            <label className="text-xs font-semibold text-gray-600 block mb-1">
+              ¿Cómo recibís tu pedido? *
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, deliveryMethod: 'PICKUP' })}
+                className={`px-3 py-2.5 rounded-xl text-sm font-bold border-2 transition-colors cursor-pointer ${
+                  form.deliveryMethod === 'PICKUP'
+                    ? 'bg-[#044389] text-white border-[#044389]'
+                    : 'bg-white text-gray-500 border-gray-300 hover:border-[#044389]/50'
+                }`}
+              >
+                🏪 Retiro en el local
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, deliveryMethod: 'DELIVERY' })}
+                className={`px-3 py-2.5 rounded-xl text-sm font-bold border-2 transition-colors cursor-pointer ${
+                  form.deliveryMethod === 'DELIVERY'
+                    ? 'bg-[#044389] text-white border-[#044389]'
+                    : 'bg-white text-gray-500 border-gray-300 hover:border-[#044389]/50'
+                }`}
+              >
+                🚚 Envío a domicilio
+              </button>
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-3">
             {field('clientName', 'Nombre *', 'text', 'Juan')}
             {field('clientSurname', 'Apellido *', 'text', 'García')}
@@ -131,10 +171,25 @@ export default function CheckoutPage() {
           </div>
           {field('clientAddress', 'Dirección *', 'text', 'Av. Corrientes 1234, CABA')}
 
+          {submitError && (
+            <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+              <AlertTriangle className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
+              <p className="text-sm text-red-600 flex-1">{submitError}</p>
+              <button
+                type="button"
+                onClick={() => setSubmitError(null)}
+                aria-label="Cerrar"
+                className="text-red-400 hover:text-red-600 transition-colors cursor-pointer shrink-0"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+
           <button
             type="submit"
             disabled={submitting}
-            className="mt-2 w-full bg-[#FCFF4B] text-[#044389] font-black py-3.5 rounded-xl hover:bg-[#f0f33d] transition-colors disabled:opacity-50 text-sm"
+            className="mt-2 w-full bg-[#FCFF4B] text-[#044389] font-black py-3.5 rounded-xl hover:bg-[#f0f33d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm cursor-pointer"
           >
             {submitting ? 'Enviando pedido...' : 'Confirmar pedido'}
           </button>
@@ -143,6 +198,9 @@ export default function CheckoutPage() {
         {/* Order summary */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 h-fit md:col-span-1">
           <h2 className="font-bold text-gray-700 text-sm mb-3">Resumen del pedido</h2>
+          <p className="text-xs font-semibold text-[#044389] mb-3">
+            {form.deliveryMethod === 'PICKUP' ? '🏪 Retiro en el local' : '🚚 Envío a domicilio'}
+          </p>
           <div className="flex flex-col gap-2">
             {items.map((item) => (
               <div key={item.productId} className="flex justify-between text-sm text-gray-600">

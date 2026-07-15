@@ -67,7 +67,7 @@ export default function CarouselSection() {
               prev();
               resetTimer();
             }}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors z-10"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors z-10 cursor-pointer"
             aria-label="Anterior"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -77,7 +77,7 @@ export default function CarouselSection() {
               next();
               resetTimer();
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors z-10"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors z-10 cursor-pointer"
             aria-label="Siguiente"
           >
             <ChevronRight className="h-5 w-5" />
@@ -95,7 +95,7 @@ export default function CarouselSection() {
                 setCurrent(i);
                 resetTimer();
               }}
-              className="h-1.5 rounded-full transition-all"
+              className="h-1.5 rounded-full transition-all cursor-pointer"
               style={{
                 width: i === current ? '1.25rem' : '0.375rem',
                 backgroundColor: i === current ? '#FCFF4B' : 'rgba(255,255,255,0.5)',

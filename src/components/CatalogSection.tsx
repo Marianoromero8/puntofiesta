@@ -1,6 +1,6 @@
 'use client';
 import type { PFCategory, PFProduct } from '@/lib/types';
-import ProductCard from './ProductCard';
+import ProductGrid from './ProductGrid';
 
 interface Props {
   category: PFCategory;
@@ -14,11 +14,7 @@ export default function CatalogSection({ category, products }: Props) {
         <h2 className="text-xl font-black text-[#044389] uppercase tracking-wide">{category.name}</h2>
         <div className="flex-1 h-px bg-[#044389]/20" />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <ProductGrid products={products} />
     </div>
   );
 }

@@ -18,7 +18,7 @@ export default function CartDrawer() {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 bg-black/50 z-40 cursor-pointer"
           onClick={closeCart}
         />
       )}
@@ -28,7 +28,7 @@ export default function CartDrawer() {
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-4 bg-[#044389] text-white">
           <h2 className="font-bold text-lg">Tu carrito</h2>
-          <button onClick={closeCart} className="p-1 hover:text-[#FCFF4B] transition-colors">
+          <button onClick={closeCart} className="p-1 hover:text-[#FCFF4B] transition-colors cursor-pointer">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -52,19 +52,19 @@ export default function CartDrawer() {
                   <p className="text-[#044389] font-bold text-sm">${Number(item.price).toLocaleString('es-AR')}</p>
                   <div className="flex items-center gap-2 mt-1.5">
                     <button onClick={() => updateQuantity(item.productId, item.quantity - 1)}
-                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
+                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
                       <Minus className="h-3 w-3" />
                     </button>
                     <span className="text-sm font-semibold w-4 text-center">{item.quantity}</span>
                     <button onClick={() => updateQuantity(item.productId, item.quantity + 1)}
-                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
+                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
                       <Plus className="h-3 w-3" />
                     </button>
                   </div>
                 </div>
                 <div className="flex flex-col items-end justify-between">
                   <button onClick={() => removeItem(item.productId)}
-                    className="p-1 text-gray-300 hover:text-red-400 transition-colors">
+                    className="p-1 text-gray-300 hover:text-red-400 transition-colors cursor-pointer">
                     <Trash2 className="h-4 w-4" />
                   </button>
                   <p className="text-sm font-bold text-gray-700">${(item.price * item.quantity).toLocaleString('es-AR')}</p>
@@ -83,7 +83,7 @@ export default function CartDrawer() {
             </div>
             <button
               onClick={() => { closeCart(); router.push('/checkout'); }}
-              className="w-full bg-[#FCFF4B] text-[#044389] font-black py-3 rounded-xl hover:bg-[#f0f33d] transition-colors text-sm"
+              className="w-full bg-[#FCFF4B] text-[#044389] font-black py-3 rounded-xl hover:bg-[#f0f33d] transition-colors text-sm cursor-pointer"
             >
               Hacer pedido
             </button>
