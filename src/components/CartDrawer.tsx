@@ -52,12 +52,14 @@ export default function CartDrawer() {
                   <p className="text-[#044389] font-bold text-sm">${Number(item.price).toLocaleString('es-AR')}</p>
                   <div className="flex items-center gap-2 mt-1.5">
                     <button onClick={() => updateQuantity(item.productId, item.quantity - 1)}
-                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
+                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer touch-manipulation">
                       <Minus className="h-3 w-3" />
                     </button>
                     <span className="text-sm font-semibold w-4 text-center">{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.productId, item.quantity + 1)}
-                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
+                    <button
+                      onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                      disabled={item.quantity >= item.stock}
+                      className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer touch-manipulation disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
                       <Plus className="h-3 w-3" />
                     </button>
                   </div>

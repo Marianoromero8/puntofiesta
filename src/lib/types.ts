@@ -31,6 +31,7 @@ export interface CartItem {
   price: number;
   imageUrl: string | null;
   quantity: number;
+  stock: number;
 }
 
 export interface PFAnnouncement {
@@ -54,4 +55,24 @@ export interface CreateOrderDto {
   clientAddress: string;
   deliveryMethod: PFDeliveryMethod;
   items: { productId: string; quantity: number }[];
+}
+
+export interface PFOrderItemResult {
+  id: string;
+  productId: string;
+  quantity: number;
+  unitPrice: number;
+  product?: { id: string; name: string; imageUrl: string | null } | null;
+}
+
+export interface PFOrderResult {
+  id: string;
+  orderNumber: number;
+  clientName: string;
+  clientSurname: string;
+  total: number;
+  deliveryMethod: PFDeliveryMethod;
+  status: string;
+  items: PFOrderItemResult[];
+  createdAt?: string;
 }
