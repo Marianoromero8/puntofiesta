@@ -4,7 +4,7 @@ const HIGHLIGHTS = [
   {
     icon: Truck,
     title: 'Zona de entrega',
-    text: 'Coordinamos la entrega dentro de Bahía Blanca y alrededores. Consultá disponibilidad para tu zona al hacer tu pedido.',
+    text: 'Coordinamos la entrega dentro de Bahía Blanca y alrededores, sin cargo adicional. Consultá si llegamos a tu zona al hacer tu pedido.',
   },
   {
     icon: Wallet,

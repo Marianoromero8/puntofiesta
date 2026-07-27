@@ -1,8 +1,28 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import Link from 'next/link';
+import type { PFOrderResult } from '@/lib/types';
 
 export default function ConfirmacionPage() {
+  const [order, setOrder] = useState<PFOrderResult | null>(null);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    const raw = sessionStorage.getItem('pf-last-order');
+    if (raw) {
+      try {
+        setOrder(JSON.parse(raw));
+      } catch {
+        // ignore malformed/legacy session data
+      }
+      sessionStorage.removeItem('pf-last-order');
+    }
+    setChecked(true);
+  }, []);
+
+  if (!checked) return null;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 py-16 text-center">
       <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-10 max-w-md w-full">
@@ -13,9 +33,40 @@ export default function ConfirmacionPage() {
         <p className="text-gray-600 text-sm leading-relaxed mb-2">
           En breve te vamos a contactar por <strong>WhatsApp</strong> con los datos para realizar la transferencia.
         </p>
-        <p className="text-gray-400 text-xs mb-8">
+        <p className="text-gray-400 text-xs mb-6">
           Una vez confirmado el pago, tu pedido queda confirmado.
         </p>
+
+        {order && (
+          <div className="text-left bg-gray-50 rounded-2xl border border-gray-100 p-4 mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-semibold text-gray-500">Pedido</span>
+              <span className="text-xs font-mono text-gray-400">
+                #{String(order.orderNumber).padStart(4, '0')}
+              </span>
+            </div>
+            <p className="text-xs font-semibold text-[#044389] mb-3">
+              {order.deliveryMethod === 'PICKUP' ? '🏪 Retiro en el local' : '🚚 Envío a domicilio'}
+            </p>
+            <div className="flex flex-col gap-1.5">
+              {order.items.map((item) => (
+                <div key={item.id} className="flex justify-between text-sm text-gray-600">
+                  <span>
+                    {item.product?.name ?? 'Producto'} <span className="text-gray-400">x{item.quantity}</span>
+                  </span>
+                  <span className="font-semibold">
+                    ${(Number(item.unitPrice) * item.quantity).toLocaleString('es-AR')}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-gray-200 mt-3 pt-3 flex justify-between font-black text-[#044389] text-sm">
+              <span>Total</span>
+              <span>${Number(order.total).toLocaleString('es-AR')}</span>
+            </div>
+          </div>
+        )}
+
         <Link
           href="/"
           className="inline-block bg-[#FCFF4B] text-[#044389] font-black px-6 py-3 rounded-xl hover:bg-[#f0f33d] transition-colors text-sm"

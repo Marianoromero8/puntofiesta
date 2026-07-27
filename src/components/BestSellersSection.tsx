@@ -64,13 +64,29 @@ export default function BestSellersSection({ products }: Props) {
             key={current}
             className="flex items-center gap-4 sm:gap-6 [animation:pf-fade-scale_0.6s_ease]"
           >
-            <div className="hidden sm:block w-44 shrink-0 scale-90 opacity-60 transition-all duration-700 ease-out">
+            <div className="hidden sm:block relative w-44 shrink-0 scale-90 opacity-60 transition-all duration-700 ease-out hover:opacity-80">
+              <button
+                onClick={() => {
+                  prev();
+                  resetTimer();
+                }}
+                aria-label="Ver producto anterior"
+                className="absolute inset-0 z-10 cursor-pointer"
+              />
               <ProductCard product={at(-1)} />
             </div>
             <div className="w-56 sm:w-64 shrink-0 scale-105 z-10 shadow-xl rounded-2xl transition-all duration-700 ease-out">
               <ProductCard product={at(0)} />
             </div>
-            <div className="hidden sm:block w-44 shrink-0 scale-90 opacity-60 transition-all duration-700 ease-out">
+            <div className="hidden sm:block relative w-44 shrink-0 scale-90 opacity-60 transition-all duration-700 ease-out hover:opacity-80">
+              <button
+                onClick={() => {
+                  next();
+                  resetTimer();
+                }}
+                aria-label="Ver producto siguiente"
+                className="absolute inset-0 z-10 cursor-pointer"
+              />
               <ProductCard product={at(1)} />
             </div>
           </div>

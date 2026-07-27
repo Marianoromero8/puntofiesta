@@ -52,7 +52,7 @@ export default function CheckoutPage() {
   if (!mounted) return null;
   if (items.length === 0) return null;
 
-  const cleanPhone = (v: string) => v.replace(/\D/g, '').replace(/^(549|54)/, '');
+  const cleanPhone = (v: string) => v.replace(/\D/g, '').replace(/^(549|54)/, '').replace(/^0/, '');
 
   const handleCuilChange = (value: string) => {
     const digits = value.replace(/\D/g, '').slice(0, 11);
@@ -68,8 +68,8 @@ export default function CheckoutPage() {
     if (!form.clientName.trim()) e.clientName = 'Requerido';
     if (!form.clientSurname.trim()) e.clientSurname = 'Requerido';
     if (!form.clientEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.clientEmail)) e.clientEmail = 'Email inválido';
-    if (cleanPhone(form.clientPhone).length !== 10) e.clientPhone = 'Ingresá 10 dígitos (ej: 2914123456)';
-    if (!form.clientDni.trim()) e.clientDni = 'Requerido';
+    if (!/^291\d{7}$/.test(cleanPhone(form.clientPhone))) e.clientPhone = 'Ingresá un número de Bahía Blanca (291 + 7 dígitos, ej: 2915262746)';
+    if (!/^\d{7,8}$/.test(form.clientDni.trim())) e.clientDni = 'Ingresá un DNI válido (7 u 8 dígitos)';
     if (!/^\d{2}-\d{8}-\d$/.test(form.clientCuil)) e.clientCuil = 'Formato: 20-12345678-9';
     if (!form.clientAddress.trim()) e.clientAddress = 'Requerido';
     setErrors(e);
@@ -82,13 +82,14 @@ export default function CheckoutPage() {
     setSubmitError(null);
     setSubmitting(true);
     try {
-      await createOrder({
+      const order = await createOrder({
         ...form,
         clientPhone: cleanPhone(form.clientPhone),
         items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
       });
       justSubmittedRef.current = true;
       clearCart();
+      sessionStorage.setItem('pf-last-order', JSON.stringify(order));
       router.push('/confirmacion');
     } catch (err) {
       setSubmitError(
@@ -154,7 +155,7 @@ export default function CheckoutPage() {
             {field('clientSurname', 'Apellido *', 'text', 'García')}
           </div>
           {field('clientEmail', 'Email *', 'email', 'juan@mail.com')}
-          {field('clientPhone', 'Celular *', 'tel', '2914 123456')}
+          {field('clientPhone', 'Celular *', 'tel', '291 5262746')}
           <div className="grid grid-cols-2 gap-3">
             {field('clientDni', 'DNI *', 'text', '12345678')}
             <div>

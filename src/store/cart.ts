@@ -28,13 +28,15 @@ export const useCart = create<CartStore>()(
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.productId === product.id ? { ...i, quantity: i.quantity + 1 } : i
+                i.productId === product.id
+                  ? { ...i, stock: product.stock, quantity: Math.min(i.quantity + 1, product.stock) }
+                  : i
               ),
               isOpen: true,
             };
           }
           return {
-            items: [...state.items, { productId: product.id, name: product.name, price: product.price, imageUrl: product.imageUrl, quantity: 1 }],
+            items: [...state.items, { productId: product.id, name: product.name, price: product.price, imageUrl: product.imageUrl, quantity: Math.min(1, product.stock), stock: product.stock }],
             isOpen: true,
           };
         }),
@@ -46,7 +48,7 @@ export const useCart = create<CartStore>()(
         set((state) => ({
           items: quantity <= 0
             ? state.items.filter((i) => i.productId !== productId)
-            : state.items.map((i) => i.productId === productId ? { ...i, quantity } : i),
+            : state.items.map((i) => i.productId === productId ? { ...i, quantity: Math.min(quantity, i.stock) } : i),
         })),
 
       clearCart: () => set({ items: [] }),

@@ -15,10 +15,11 @@ export default function ProductCard({ product }: Props) {
 
   const inCart = items.find((i) => i.productId === product.id);
   const outOfStock = product.stock === 0;
+  const atStockLimit = !!inCart && inCart.quantity >= product.stock;
   const lowStock = product.stock > 0 && product.stock <= 3;
 
   const handleAdd = () => {
-    if (outOfStock) return;
+    if (outOfStock || atStockLimit) return;
     addItem(product);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -61,9 +62,9 @@ export default function ProductCard({ product }: Props) {
           </span>
           <button
             onClick={handleAdd}
-            disabled={outOfStock}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
-              outOfStock
+            disabled={outOfStock || atStockLimit}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all touch-manipulation ${
+              outOfStock || atStockLimit
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                 : added
                 ? 'bg-green-500 text-white cursor-pointer'
@@ -74,6 +75,8 @@ export default function ProductCard({ product }: Props) {
           >
             {outOfStock ? (
               'Sin stock'
+            ) : atStockLimit ? (
+              <><ShoppingCart className="h-3.5 w-3.5" /> x{inCart!.quantity} (máx.)</>
             ) : added ? (
               <><Check className="h-3.5 w-3.5" /> Agregado</>
             ) : inCart ? (

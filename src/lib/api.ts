@@ -1,4 +1,4 @@
-import type { PFCategory, PFProduct, CreateOrderDto, PFAnnouncement, PFPublicSettings } from './types';
+import type { PFCategory, PFProduct, CreateOrderDto, PFAnnouncement, PFPublicSettings, PFOrderResult } from './types';
 
 const BASE = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/punto-fiesta`;
 
@@ -37,7 +37,7 @@ export async function getPublicSettings(): Promise<PFPublicSettings> {
   return json.data as PFPublicSettings;
 }
 
-export async function createOrder(data: CreateOrderDto) {
+export async function createOrder(data: CreateOrderDto): Promise<PFOrderResult> {
   const res = await fetch(`${BASE}/orders`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -47,5 +47,6 @@ export async function createOrder(data: CreateOrderDto) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.message ?? 'Error al crear el pedido');
   }
-  return res.json();
+  const json = await res.json();
+  return json.data as PFOrderResult;
 }
