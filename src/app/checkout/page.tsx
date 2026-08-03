@@ -107,7 +107,7 @@ export default function CheckoutPage() {
         value={form[key]}
         onChange={(e) => { setForm({ ...form, [key]: e.target.value }); setErrors({ ...errors, [key]: undefined }); }}
         placeholder={placeholder}
-        className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#044389] transition-colors ${errors[key] ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+        className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-black transition-colors ${errors[key] ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
       />
       {errors[key] && <p className="text-xs text-red-500 mt-0.5">{errors[key]}</p>}
     </div>
@@ -115,7 +115,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-black text-[#044389] mb-6">Completá tu pedido</h1>
+      <h1 className="text-2xl font-black text-black mb-6">Completá tu pedido</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Form */}
@@ -130,8 +130,8 @@ export default function CheckoutPage() {
                 onClick={() => setForm({ ...form, deliveryMethod: 'PICKUP' })}
                 className={`px-3 py-2.5 rounded-xl text-sm font-bold border-2 transition-colors cursor-pointer ${
                   form.deliveryMethod === 'PICKUP'
-                    ? 'bg-[#044389] text-white border-[#044389]'
-                    : 'bg-white text-gray-500 border-gray-300 hover:border-[#044389]/50'
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-gray-500 border-gray-300 hover:border-black/50'
                 }`}
               >
                 🏪 Retiro en el local
@@ -141,8 +141,8 @@ export default function CheckoutPage() {
                 onClick={() => setForm({ ...form, deliveryMethod: 'DELIVERY' })}
                 className={`px-3 py-2.5 rounded-xl text-sm font-bold border-2 transition-colors cursor-pointer ${
                   form.deliveryMethod === 'DELIVERY'
-                    ? 'bg-[#044389] text-white border-[#044389]'
-                    : 'bg-white text-gray-500 border-gray-300 hover:border-[#044389]/50'
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-gray-500 border-gray-300 hover:border-black/50'
                 }`}
               >
                 🚚 Envío a domicilio
@@ -165,7 +165,7 @@ export default function CheckoutPage() {
                 value={form.clientCuil}
                 onChange={(e) => handleCuilChange(e.target.value)}
                 placeholder="20-12345678-9"
-                className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#044389] transition-colors ${errors.clientCuil ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+                className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-black transition-colors ${errors.clientCuil ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
               />
               {errors.clientCuil && <p className="text-xs text-red-500 mt-0.5">{errors.clientCuil}</p>}
             </div>
@@ -190,7 +190,7 @@ export default function CheckoutPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="mt-2 w-full bg-[#FCFF4B] text-[#044389] font-black py-3.5 rounded-xl hover:bg-[#f0f33d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm cursor-pointer"
+            className="mt-2 w-full bg-[#DC1414] text-white font-black py-3.5 rounded-xl hover:bg-[#C81414] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm cursor-pointer"
           >
             {submitting ? 'Enviando pedido...' : 'Confirmar pedido'}
           </button>
@@ -199,7 +199,7 @@ export default function CheckoutPage() {
         {/* Order summary */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 h-fit md:col-span-1">
           <h2 className="font-bold text-gray-700 text-sm mb-3">Resumen del pedido</h2>
-          <p className="text-xs font-semibold text-[#044389] mb-3">
+          <p className="text-xs font-semibold text-black mb-3">
             {form.deliveryMethod === 'PICKUP' ? '🏪 Retiro en el local' : '🚚 Envío a domicilio'}
           </p>
           <div className="flex flex-col gap-2">
@@ -210,7 +210,7 @@ export default function CheckoutPage() {
               </div>
             ))}
           </div>
-          <div className="border-t border-gray-100 mt-3 pt-3 flex justify-between font-black text-[#044389]">
+          <div className="border-t border-gray-100 mt-3 pt-3 flex justify-between font-black text-black">
             <span>Total</span>
             <span>${totalPrice().toLocaleString('es-AR')}</span>
           </div>

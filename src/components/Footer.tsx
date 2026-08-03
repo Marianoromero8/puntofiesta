@@ -40,7 +40,7 @@ export default function Footer() {
     settings && (settings.instagramUrl || settings.facebookUrl || settings.whatsappUrl);
 
   return (
-    <footer className="bg-[#044389] text-white/70 py-6 mt-8">
+    <footer className="bg-black text-white/70 py-6 mt-8">
       {hasSocial && (
         <div className="flex justify-center gap-4 mb-3">
           {settings?.instagramUrl && (
@@ -49,7 +49,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="text-white/80 hover:text-[#FCFF4B] transition-colors"
+              className="text-white/80 hover:text-[#FFC800] transition-colors"
             >
               <InstagramIcon />
             </a>
@@ -60,7 +60,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="text-white/80 hover:text-[#FCFF4B] transition-colors"
+              className="text-white/80 hover:text-[#FFC800] transition-colors"
             >
               <FacebookIcon />
             </a>
@@ -71,7 +71,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="text-white/80 hover:text-[#FCFF4B] transition-colors"
+              className="text-white/80 hover:text-[#FFC800] transition-colors"
             >
               <WhatsAppIcon />
             </a>

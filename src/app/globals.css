@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --pf-navy: #044389;
-  --pf-yellow: #FCFF4B;
-  --pf-orange: #FFAD05;
-  --pf-sky: #7CAFC4;
-  --pf-blue: #5995ED;
+  --pf-black: #000000;
+  --pf-yellow: #FFC800;
+  --pf-red: #DC1414;
 }
 
 * {

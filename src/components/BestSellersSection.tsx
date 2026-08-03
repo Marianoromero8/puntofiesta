@@ -39,10 +39,10 @@ export default function BestSellersSection({ products }: Props) {
   return (
     <div className="max-w-[1600px] mx-auto px-4 py-6">
       <div className="flex items-center gap-3 mb-5">
-        <h2 className="text-xl font-black text-[#044389] uppercase tracking-wide">
+        <h2 className="text-xl font-black text-black uppercase tracking-wide">
           Lo más vendido
         </h2>
-        <div className="flex-1 h-px bg-[#044389]/20" />
+        <div className="flex-1 h-px bg-black/20" />
       </div>
 
       <div className="relative flex items-center justify-center gap-4 sm:gap-6 py-6">
@@ -55,7 +55,7 @@ export default function BestSellersSection({ products }: Props) {
             className="hidden sm:flex absolute left-0 z-20 bg-white shadow-md rounded-full p-1.5 hover:bg-gray-50 transition-colors cursor-pointer"
             aria-label="Anterior"
           >
-            <ChevronLeft className="h-5 w-5 text-[#044389]" />
+            <ChevronLeft className="h-5 w-5 text-black" />
           </button>
         )}
 
@@ -108,7 +108,7 @@ export default function BestSellersSection({ products }: Props) {
             className="hidden sm:flex absolute right-0 z-20 bg-white shadow-md rounded-full p-1.5 hover:bg-gray-50 transition-colors cursor-pointer"
             aria-label="Siguiente"
           >
-            <ChevronRight className="h-5 w-5 text-[#044389]" />
+            <ChevronRight className="h-5 w-5 text-black" />
           </button>
         )}
       </div>

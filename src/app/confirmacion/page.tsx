@@ -29,7 +29,7 @@ export default function ConfirmacionPage() {
         <div className="flex justify-center mb-5">
           <CheckCircle className="h-16 w-16 text-green-500" />
         </div>
-        <h1 className="text-2xl font-black text-[#044389] mb-3">¡Pedido recibido!</h1>
+        <h1 className="text-2xl font-black text-black mb-3">¡Pedido recibido!</h1>
         <p className="text-gray-600 text-sm leading-relaxed mb-2">
           En breve te vamos a contactar por <strong>WhatsApp</strong> con los datos para realizar la transferencia.
         </p>
@@ -45,7 +45,7 @@ export default function ConfirmacionPage() {
                 #{String(order.orderNumber).padStart(4, '0')}
               </span>
             </div>
-            <p className="text-xs font-semibold text-[#044389] mb-3">
+            <p className="text-xs font-semibold text-black mb-3">
               {order.deliveryMethod === 'PICKUP' ? '🏪 Retiro en el local' : '🚚 Envío a domicilio'}
             </p>
             <div className="flex flex-col gap-1.5">
@@ -60,7 +60,7 @@ export default function ConfirmacionPage() {
                 </div>
               ))}
             </div>
-            <div className="border-t border-gray-200 mt-3 pt-3 flex justify-between font-black text-[#044389] text-sm">
+            <div className="border-t border-gray-200 mt-3 pt-3 flex justify-between font-black text-black text-sm">
               <span>Total</span>
               <span>${Number(order.total).toLocaleString('es-AR')}</span>
             </div>
@@ -69,7 +69,7 @@ export default function ConfirmacionPage() {
 
         <Link
           href="/"
-          className="inline-block bg-[#FCFF4B] text-[#044389] font-black px-6 py-3 rounded-xl hover:bg-[#f0f33d] transition-colors text-sm"
+          className="inline-block bg-[#DC1414] text-white font-black px-6 py-3 rounded-xl hover:bg-[#C81414] transition-colors text-sm"
         >
           Volver al inicio
         </Link>

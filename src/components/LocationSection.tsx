@@ -13,20 +13,20 @@ export default function LocationSection({ address }: Props) {
   return (
     <div className="max-w-[1600px] mx-auto px-4 py-10">
       <div className="flex items-center gap-3 mb-5">
-        <h2 className="text-xl font-black text-[#044389] uppercase tracking-wide">
+        <h2 className="text-xl font-black text-black uppercase tracking-wide">
           Retirá tu pedido
         </h2>
-        <div className="flex-1 h-px bg-[#044389]/20" />
+        <div className="flex-1 h-px bg-black/20" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 h-[32rem]">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 flex flex-col justify-center gap-4">
-          <p className="text-[#044389] font-bold text-lg">Retirá tu pedido en nuestra sucursal</p>
+          <p className="text-black font-bold text-lg">Retirá tu pedido en nuestra sucursal</p>
           <p className="text-gray-700 text-sm leading-relaxed">{fullAddress}</p>
           <a
             href={`https://www.google.com/maps/dir/?api=1&destination=${encoded}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#FCFF4B] text-[#044389] hover:bg-[#f0f33d] transition-colors cursor-pointer"
+            className="inline-flex w-fit items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold bg-[#DC1414] text-white hover:bg-[#C81414] transition-colors cursor-pointer"
           >
             Cómo llegar
           </a>
