@@ -3,6 +3,7 @@ import { X, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { fmtMoney } from '@/lib/format';
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice } = useCart();
@@ -49,7 +50,7 @@ export default function CartDrawer() {
                 }
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-gray-800 text-sm truncate">{item.name}</p>
-                  <p className="text-black font-bold text-sm">${Number(item.price).toLocaleString('es-AR')}</p>
+                  <p className="text-black font-bold text-sm">{fmtMoney(Number(item.price))}</p>
                   <div className="flex items-center gap-2 mt-1.5">
                     <button onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                       className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer touch-manipulation">
@@ -69,7 +70,7 @@ export default function CartDrawer() {
                     className="p-1 text-gray-300 hover:text-red-400 transition-colors cursor-pointer">
                     <Trash2 className="h-4 w-4" />
                   </button>
-                  <p className="text-sm font-bold text-gray-700">${(item.price * item.quantity).toLocaleString('es-AR')}</p>
+                  <p className="text-sm font-bold text-gray-700">{fmtMoney(item.price * item.quantity)}</p>
                 </div>
               </div>
             ))
@@ -81,7 +82,7 @@ export default function CartDrawer() {
           <div className="px-4 py-4 border-t border-gray-200 bg-white">
             <div className="flex justify-between items-center mb-3">
               <span className="text-gray-600 font-medium">Total</span>
-              <span className="text-xl font-black text-black">${totalPrice().toLocaleString('es-AR')}</span>
+              <span className="text-xl font-black text-black">{fmtMoney(totalPrice())}</span>
             </div>
             <button
               onClick={() => { closeCart(); router.push('/checkout'); }}
