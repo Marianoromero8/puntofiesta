@@ -14,7 +14,7 @@ const MAINTENANCE_HTML = `<!doctype html>
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #044389;
+    background: #000000;
     font-family: Arial, Helvetica, sans-serif;
     padding: 24px;
   }
@@ -29,8 +29,8 @@ const MAINTENANCE_HTML = `<!doctype html>
   }
   .badge {
     display: inline-block;
-    background: #FCFF4B;
-    color: #044389;
+    background: #FFC800;
+    color: #000000;
     font-weight: 800;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -40,7 +40,7 @@ const MAINTENANCE_HTML = `<!doctype html>
     text-transform: uppercase;
   }
   h1 {
-    color: #044389;
+    color: #000000;
     font-size: 22px;
     margin: 0 0 12px;
   }

@@ -28,11 +28,11 @@ export default function ProductCard({ product }: Props) {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
       {/* Image */}
-      <div className="relative aspect-square bg-[#044389]/5 flex items-center justify-center overflow-hidden">
+      <div className="relative aspect-square bg-black/5 flex items-center justify-center overflow-hidden">
         {product.imageUrl ? (
           <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
         ) : (
-          <div className="flex flex-col items-center gap-1 text-[#044389]/30">
+          <div className="flex flex-col items-center gap-1 text-black/30">
             <span className="font-black text-3xl">PF</span>
           </div>
         )}
@@ -52,12 +52,12 @@ export default function ProductCard({ product }: Props) {
           <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">{product.description}</p>
         )}
         {lowStock && (
-          <p className="text-xs font-black text-[#FFAD05] tracking-wide">
+          <p className="text-xs font-black text-[#DC1414] tracking-wide">
             ⚡ ¡Quedan {product.stock}!
           </p>
         )}
         <div className="mt-auto pt-2 flex items-center justify-between gap-2">
-          <span className={`text-lg font-black ${outOfStock ? 'text-gray-400' : 'text-[#044389]'}`}>
+          <span className={`text-lg font-black ${outOfStock ? 'text-gray-400' : 'text-black'}`}>
             ${Number(product.price).toLocaleString('es-AR')}
           </span>
           <button
@@ -69,8 +69,8 @@ export default function ProductCard({ product }: Props) {
                 : added
                 ? 'bg-green-500 text-white cursor-pointer'
                 : inCart
-                ? 'bg-[#044389]/10 text-[#044389] hover:bg-[#044389]/20 cursor-pointer'
-                : 'bg-[#FCFF4B] text-[#044389] hover:bg-[#f0f33d] cursor-pointer'
+                ? 'bg-black/10 text-black hover:bg-black/20 cursor-pointer'
+                : 'bg-[#DC1414] text-white hover:bg-[#C81414] cursor-pointer'
             }`}
           >
             {outOfStock ? (

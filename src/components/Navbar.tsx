@@ -33,11 +33,11 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#044389] shadow-md">
+    <header className="sticky top-0 z-40 bg-black shadow-md">
       <div className="max-w-[1600px] mx-auto px-4 h-16 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3 shrink-0">
           <span className="flex items-center gap-2">
-            <span className="text-[#FCFF4B] font-black text-xl tracking-tight">PUNTO</span>
+            <span className="text-[#FFC800] font-black text-xl tracking-tight">PUNTO</span>
             <span className="text-white font-black text-xl tracking-tight">FIESTA</span>
           </span>
           <span className="hidden lg:inline text-white/50 text-xs font-medium border-l border-white/20 pl-3">
@@ -55,7 +55,7 @@ export default function Navbar() {
           <button
             type="submit"
             aria-label="Buscar"
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#FCFF4B] transition-colors cursor-pointer"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#FFC800] transition-colors cursor-pointer"
           >
             <Search className="h-4 w-4" />
           </button>
@@ -63,12 +63,12 @@ export default function Navbar() {
 
         <button
           onClick={openCart}
-          className="relative p-2 text-white hover:text-[#FCFF4B] transition-colors shrink-0 cursor-pointer"
+          className="relative p-2 text-white hover:text-[#FFC800] transition-colors shrink-0 cursor-pointer"
           aria-label="Ver carrito"
         >
           <ShoppingCart className="h-6 w-6" />
           {mounted && totalItems() > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 bg-[#FFAD05] text-[#044389] text-xs font-black rounded-full w-5 h-5 flex items-center justify-center leading-none">
+            <span className="absolute -top-0.5 -right-0.5 bg-[#DC1414] text-white text-xs font-black rounded-full w-5 h-5 flex items-center justify-center leading-none">
               {totalItems()}
             </span>
           )}
@@ -85,7 +85,7 @@ export default function Navbar() {
         <button
           type="submit"
           aria-label="Buscar"
-          className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#FCFF4B] transition-colors cursor-pointer"
+          className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#FFC800] transition-colors cursor-pointer"
         >
           <Search className="h-4 w-4" />
         </button>
@@ -98,7 +98,7 @@ export default function Navbar() {
               <Link
                 key={c.id}
                 href={`/${c.slug}`}
-                className="flex items-center gap-1.5 text-white/80 hover:text-[#FCFF4B] text-base font-medium transition-colors"
+                className="flex items-center gap-1.5 text-white/80 hover:text-[#FFC800] text-base font-medium transition-colors"
               >
                 <Tag className="h-4 w-4" />
                 {c.name}

@@ -79,8 +79,8 @@ export default function PopupAnnouncement() {
                 className="h-2 rounded-full transition-all cursor-pointer"
                 style={{
                   width: i === current ? '1.5rem' : '0.5rem',
-                  backgroundColor: i === current ? '#FCFF4B' : '#d1d5db',
-                  border: i === current ? '1px solid #044389' : 'none',
+                  backgroundColor: i === current ? '#FFC800' : '#d1d5db',
+                  border: i === current ? '1px solid #000000' : 'none',
                 }}
               />
             ))}
@@ -90,14 +90,14 @@ export default function PopupAnnouncement() {
         {/* Title — always same height to avoid layout shift */}
         <div className="px-5 py-3 border-t border-gray-100 h-11">
           {slide.title && (
-            <p className="font-semibold text-[#044389] text-sm truncate">{slide.title}</p>
+            <p className="font-semibold text-black text-sm truncate">{slide.title}</p>
           )}
         </div>
 
         <div className="px-5 pb-5 pt-2">
           <button
             onClick={close}
-            className="w-full text-[11px] uppercase tracking-[0.15em] bg-[#044389] text-[#FCFF4B] py-3 hover:bg-[#033070] transition-colors font-semibold rounded cursor-pointer"
+            className="w-full text-[11px] uppercase tracking-[0.15em] bg-black text-[#FFC800] py-3 hover:bg-[#262626] transition-colors font-semibold rounded cursor-pointer"
           >
             Cerrar
           </button>

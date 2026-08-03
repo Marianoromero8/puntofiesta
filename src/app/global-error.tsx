@@ -23,7 +23,7 @@ export default function GlobalError({
           </p>
           <button
             onClick={() => unstable_retry()}
-            className="bg-[#044389] text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#033268] transition-colors"
+            className="bg-black text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#262626] transition-colors"
           >
             Reintentar
           </button>

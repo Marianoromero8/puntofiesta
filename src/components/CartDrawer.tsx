@@ -26,9 +26,9 @@ export default function CartDrawer() {
       {/* Drawer */}
       <div className={`fixed top-0 right-0 h-full w-full max-w-sm bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-4 bg-[#044389] text-white">
+        <div className="flex items-center justify-between px-4 py-4 bg-black text-white">
           <h2 className="font-bold text-lg">Tu carrito</h2>
-          <button onClick={closeCart} className="p-1 hover:text-[#FCFF4B] transition-colors cursor-pointer">
+          <button onClick={closeCart} className="p-1 hover:text-[#FFC800] transition-colors cursor-pointer">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -45,11 +45,11 @@ export default function CartDrawer() {
               <div key={item.productId} className="flex gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100">
                 {item.imageUrl
                   ? <img src={item.imageUrl} alt={item.name} className="w-14 h-14 object-contain rounded-lg shrink-0 bg-white border border-gray-100" />
-                  : <div className="w-14 h-14 rounded-lg bg-[#044389]/10 shrink-0 flex items-center justify-center text-[#044389] font-black text-xs">PF</div>
+                  : <div className="w-14 h-14 rounded-lg bg-black/10 shrink-0 flex items-center justify-center text-black font-black text-xs">PF</div>
                 }
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-gray-800 text-sm truncate">{item.name}</p>
-                  <p className="text-[#044389] font-bold text-sm">${Number(item.price).toLocaleString('es-AR')}</p>
+                  <p className="text-black font-bold text-sm">${Number(item.price).toLocaleString('es-AR')}</p>
                   <div className="flex items-center gap-2 mt-1.5">
                     <button onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                       className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer touch-manipulation">
@@ -81,11 +81,11 @@ export default function CartDrawer() {
           <div className="px-4 py-4 border-t border-gray-200 bg-white">
             <div className="flex justify-between items-center mb-3">
               <span className="text-gray-600 font-medium">Total</span>
-              <span className="text-xl font-black text-[#044389]">${totalPrice().toLocaleString('es-AR')}</span>
+              <span className="text-xl font-black text-black">${totalPrice().toLocaleString('es-AR')}</span>
             </div>
             <button
               onClick={() => { closeCart(); router.push('/checkout'); }}
-              className="w-full bg-[#FCFF4B] text-[#044389] font-black py-3 rounded-xl hover:bg-[#f0f33d] transition-colors text-sm cursor-pointer"
+              className="w-full bg-[#DC1414] text-white font-black py-3 rounded-xl hover:bg-[#C81414] transition-colors text-sm cursor-pointer"
             >
               Hacer pedido
             </button>

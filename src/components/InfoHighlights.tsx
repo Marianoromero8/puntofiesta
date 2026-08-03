@@ -27,10 +27,10 @@ export default function InfoHighlights() {
             key={item.title}
             className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 flex flex-col items-center text-center gap-3"
           >
-            <div className="w-14 h-14 rounded-full bg-[#044389]/10 flex items-center justify-center">
-              <item.icon className="h-7 w-7 text-[#044389]" />
+            <div className="w-14 h-14 rounded-full bg-black/10 flex items-center justify-center">
+              <item.icon className="h-7 w-7 text-black" />
             </div>
-            <h3 className="font-bold text-[#044389] text-base">{item.title}</h3>
+            <h3 className="font-bold text-black text-base">{item.title}</h3>
             <p className="text-sm text-gray-500 leading-relaxed">{item.text}</p>
           </div>
         ))}

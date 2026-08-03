@@ -23,7 +23,7 @@ export default async function SearchPage({
 
   return (
     <div className="max-w-[1600px] mx-auto px-4 py-10">
-      <h1 className="text-xl font-black text-[#044389] mb-6">
+      <h1 className="text-xl font-black text-black mb-6">
         {query ? `Resultados para "${query}"` : 'Buscar productos'}
       </h1>
       {query && results.length === 0 ? (

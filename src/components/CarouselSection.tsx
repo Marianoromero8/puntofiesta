@@ -98,7 +98,7 @@ export default function CarouselSection() {
               className="h-1.5 rounded-full transition-all cursor-pointer"
               style={{
                 width: i === current ? '1.25rem' : '0.375rem',
-                backgroundColor: i === current ? '#FCFF4B' : 'rgba(255,255,255,0.5)',
+                backgroundColor: i === current ? '#FFC800' : 'rgba(255,255,255,0.5)',
               }}
             />
           ))}

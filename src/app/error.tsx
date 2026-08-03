@@ -17,7 +17,7 @@ export default function ErrorPage({
 
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 px-6 text-center">
-      <AlertTriangle className="h-10 w-10 text-[#044389]" />
+      <AlertTriangle className="h-10 w-10 text-black" />
       <h2 className="text-xl font-bold text-gray-800">Algo salió mal</h2>
       <p className="text-sm text-gray-500 max-w-sm">
         Ocurrió un error inesperado. Podés intentar de nuevo o volver al inicio.
@@ -25,7 +25,7 @@ export default function ErrorPage({
       <div className="flex gap-3 mt-2">
         <button
           onClick={() => unstable_retry()}
-          className="bg-[#044389] text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#033268] transition-colors"
+          className="bg-black text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#262626] transition-colors"
         >
           Reintentar
         </button>
