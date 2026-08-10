@@ -1,5 +1,6 @@
-import { getProducts, getPublicSettings } from '@/lib/api';
+import { getCategories, getProducts, getPublicSettings } from '@/lib/api';
 import CarouselSection from '@/components/CarouselSection';
+import CategoriesSection from '@/components/CategoriesSection';
 import BestSellersSection from '@/components/BestSellersSection';
 import LocationSection from '@/components/LocationSection';
 import InfoHighlights from '@/components/InfoHighlights';
@@ -7,7 +8,11 @@ import InfoHighlights from '@/components/InfoHighlights';
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const [products, settings] = await Promise.all([getProducts(), getPublicSettings()]);
+  const [categories, products, settings] = await Promise.all([
+    getCategories(),
+    getProducts(),
+    getPublicSettings(),
+  ]);
 
   const bestSellers = products.filter((p) => p.active && p.featured);
 
@@ -15,6 +20,9 @@ export default async function HomePage() {
     <div>
       {/* Carousel */}
       <CarouselSection />
+
+      {/* Categories */}
+      <CategoriesSection categories={categories} />
 
       {/* Best sellers */}
       {bestSellers.length > 0 && <BestSellersSection products={bestSellers} />}
