@@ -3,6 +3,7 @@ import type { PFProduct } from '@/lib/types';
 import { useCart } from '@/store/cart';
 import { ShoppingCart, Check } from 'lucide-react';
 import { useState } from 'react';
+import { fmtMoney } from '@/lib/format';
 
 interface Props {
   product: PFProduct;
@@ -58,7 +59,7 @@ export default function ProductCard({ product }: Props) {
         )}
         <div className="mt-auto pt-2 flex items-center justify-between gap-2">
           <span className={`text-lg font-black ${outOfStock ? 'text-gray-400' : 'text-black'}`}>
-            ${Number(product.price).toLocaleString('es-AR')}
+            {fmtMoney(Number(product.price))}
           </span>
           <button
             onClick={handleAdd}

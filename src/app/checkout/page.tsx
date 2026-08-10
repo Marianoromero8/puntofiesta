@@ -5,6 +5,7 @@ import { createOrder } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { AlertTriangle, X } from 'lucide-react';
 import type { PFDeliveryMethod } from '@/lib/types';
+import { fmtMoney } from '@/lib/format';
 
 interface FormData {
   clientName: string;
@@ -206,13 +207,13 @@ export default function CheckoutPage() {
             {items.map((item) => (
               <div key={item.productId} className="flex justify-between text-sm text-gray-600">
                 <span>{item.name} <span className="text-gray-400">x{item.quantity}</span></span>
-                <span className="font-semibold">${(item.price * item.quantity).toLocaleString('es-AR')}</span>
+                <span className="font-semibold">{fmtMoney(item.price * item.quantity)}</span>
               </div>
             ))}
           </div>
           <div className="border-t border-gray-100 mt-3 pt-3 flex justify-between font-black text-black">
             <span>Total</span>
-            <span>${totalPrice().toLocaleString('es-AR')}</span>
+            <span>{fmtMoney(totalPrice())}</span>
           </div>
           <p className="text-xs text-gray-400 mt-3 leading-relaxed">
             Al confirmar tu pedido te vamos a contactar por WhatsApp con los datos para realizar la transferencia.
