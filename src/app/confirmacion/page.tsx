@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import type { PFOrderResult } from '@/lib/types';
+import { fmtMoney } from '@/lib/format';
 
 export default function ConfirmacionPage() {
   const [order, setOrder] = useState<PFOrderResult | null>(null);
@@ -55,14 +56,14 @@ export default function ConfirmacionPage() {
                     {item.product?.name ?? 'Producto'} <span className="text-gray-400">x{item.quantity}</span>
                   </span>
                   <span className="font-semibold">
-                    ${(Number(item.unitPrice) * item.quantity).toLocaleString('es-AR')}
+                    {fmtMoney(Number(item.unitPrice) * item.quantity)}
                   </span>
                 </div>
               ))}
             </div>
             <div className="border-t border-gray-200 mt-3 pt-3 flex justify-between font-black text-black text-sm">
               <span>Total</span>
-              <span>${Number(order.total).toLocaleString('es-AR')}</span>
+              <span>{fmtMoney(Number(order.total))}</span>
             </div>
           </div>
         )}

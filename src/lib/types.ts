@@ -3,6 +3,8 @@ export interface PFCategory {
   name: string;
   slug: string;
   active: boolean;
+  imageUrl: string | null;
+  featuredOnHome: boolean;
 }
 
 export interface PFProduct {
